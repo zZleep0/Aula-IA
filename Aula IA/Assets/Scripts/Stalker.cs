@@ -1,0 +1,37 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.AI;
+
+public class Stalker : MonoBehaviour
+{
+    [SerializeField] private NavMeshAgent agent;
+    [SerializeField] private Transform target;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        if (agent == null)
+        {
+            if (!TryGetComponent(out agent))
+            {
+                Debug.LogWarning(name + "precisa colocar um navmesh agent");
+            }
+        }
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (target)
+        {
+            MoveToTarget();
+        }
+    }
+
+    private void MoveToTarget()
+    {
+        agent.SetDestination(target.position);
+        agent.isStopped = false;
+    }
+}
