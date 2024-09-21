@@ -8,6 +8,11 @@ public class Stalker : MonoBehaviour
     [SerializeField] private NavMeshAgent agent;
     [SerializeField] private Transform target;
 
+    //Distancia para ele eliminar o alvo
+    [SerializeField] private float killDistance = 3f;
+    //Quanto o npc tem que girar para atingir o alvo para elimina-lo
+    [SerializeField] private float lookThreshold = 0.8f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,12 +31,26 @@ public class Stalker : MonoBehaviour
         if (target)
         {
             MoveToTarget();
+
+            //if (Vector3.Dot(transform.forward.normalized, target.position.normalized) <= lookThreshold && Vector3.Distance(transform.position, target.position) <= killDistance)
+            //{
+            //    KillTarget();
+
+            //    return;
+            //}
         }
+
     }
 
     private void MoveToTarget()
     {
         agent.SetDestination(target.position);
         agent.isStopped = false;
+    }
+
+    private void KillTarget()
+    {
+        Destroy(target.gameObject);
+        target = null;
     }
 }
