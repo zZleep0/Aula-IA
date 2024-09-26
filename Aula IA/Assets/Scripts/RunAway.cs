@@ -5,11 +5,15 @@ using UnityEngine.AI;
 
 public class RunAway : MonoBehaviour
 {
+    //IA
     [SerializeField] private NavMeshAgent agent = null;
     [SerializeField] private Transform stalker = null;
     [SerializeField] private float travelCost = 5f;
 
-    
+    ////Pulo
+    //[SerializeField] private Rigidbody rb;
+    //[SerializeField] private float forcaPulo;
+
 
 
     private void OnDrawGizmos()
@@ -47,14 +51,33 @@ public class RunAway : MonoBehaviour
 
         Vector3 directionNormalized = (stalker.position - transform.position).normalized;
 
-        //directionNormalized = Quaternion.AngleAxis(Random.Range(0,179), Vector3.up) * directionNormalized;
+        directionNormalized = Quaternion.AngleAxis(Random.Range(-120, 120), Vector3.up) * directionNormalized;
 
-        MoverPara(transform.position - (directionNormalized * travelCost));
+        StartCoroutine(Mover(transform.position - (directionNormalized * travelCost)));
+
+        //Jump();
     }
 
-    void MoverPara(Vector3 position)
+    //void MoverPara(Vector3 position)
+    //{
+    //    agent.SetDestination(position);
+    //    agent.isStopped = false;
+    //}
+
+    IEnumerator Mover(Vector3 position)
     {
         agent.SetDestination(position);
         agent.isStopped = false;
+        yield return new WaitForSeconds(3);
     }
+
+    //void Jump()
+    //{
+    //    if (Input.GetKeyDown(KeyCode.Space))
+    //    {
+            
+    //        rb.AddForce(new Vector3(0, 1, 0) * forcaPulo, ForceMode.Impulse);
+    //        print("pulou");
+    //    }
+    //}
 }

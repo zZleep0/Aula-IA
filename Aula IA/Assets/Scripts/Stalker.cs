@@ -32,12 +32,12 @@ public class Stalker : MonoBehaviour
         {
             MoveToTarget();
 
-            //if (Vector3.Dot(transform.forward.normalized, target.position.normalized) <= lookThreshold && Vector3.Distance(transform.position, target.position) <= killDistance)
-            //{
-            //    KillTarget();
+            if (Vector3.Dot(transform.forward.normalized, target.position.normalized) <= lookThreshold && Vector3.Distance(transform.position, target.position) <= killDistance)
+            {
+                KillTarget();
 
-            //    return;
-            //}
+                return;
+            }
         }
 
     }
